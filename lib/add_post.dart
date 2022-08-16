@@ -12,11 +12,13 @@ class AddPost extends StatefulWidget {
   State<StatefulWidget> createState() => new AddPostState();
 }
 class AddPostState extends State<AddPost>{
-  late String description;
+  late String description="";
   Data data =Data();
   Storage storage = Storage();
   var img ="";
   late String fileName;
+  final formKey = new GlobalKey<FormState>();
+
   void initState() {
     super.initState();
     print("init");
@@ -51,6 +53,8 @@ class AddPostState extends State<AddPost>{
   }
 
   void addpost() async{
+    final form = formKey.currentState;
+    form?.save();
     final user =await data.getuser();
     final post = {
       "image": fileName,
@@ -58,7 +62,7 @@ class AddPostState extends State<AddPost>{
       "user":user.id
     };
     var bd = FirebaseFirestore.instance;
-    bd.collection("posts").doc().set(post);
+   await bd.collection("posts").doc().set(post);
 
   }
 

@@ -57,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
   void validateandsubmit() async{
 
     if(validateandsave()){
+
       try{
         if(_formType==FormType.login) {
           var user = await FirebaseAuth.instance.signInWithEmailAndPassword(
