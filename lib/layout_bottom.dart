@@ -7,22 +7,22 @@ import 'package:flutter_app/home_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class layout extends StatefulWidget{
-  const layout({super.key,required this.onsignedout});
-  final VoidCallback onsignedout;
+  const layout({super.key});
+
 
 
 
   @override
-  State<StatefulWidget> createState() =>  _layoutstate(onsignedout: onsignedout);
+  State<StatefulWidget> createState() =>  _layoutstate();
 }
 
 class _layoutstate extends State<layout>{
-   _layoutstate({required this.onsignedout});
-   final VoidCallback onsignedout;
+
+
 
   int currentIndex =0;
  late final List screens =[
-   HomePage(onsignedout: onsignedout),
+   HomePage(),
    AddPost(),
     profile(),
   ];

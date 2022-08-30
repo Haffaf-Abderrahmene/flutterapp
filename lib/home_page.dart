@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/NavBar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class HomePage extends StatelessWidget{
-  const HomePage({required this.onsignedout});
-  final VoidCallback onsignedout;
-  void signout() async{
-    try{
-      await FirebaseAuth.instance.signOut();
-      onsignedout();
-    }catch(e){
-      print (e);
-    }
-  }
+class HomePage extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => new HomeState();
+}
+
+class HomeState extends State<HomePage>{
+
   @override
   Widget build(BuildContext context) {
 
+    void signout() async{
+      try{
+        await FirebaseAuth.instance.signOut();
+      }catch(e){
+        print (e);
+      }
+    }
     return new Scaffold(
       drawer: NavBar(),
       appBar: new AppBar(

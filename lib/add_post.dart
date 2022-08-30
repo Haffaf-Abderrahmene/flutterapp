@@ -5,6 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_app/getdata.dart';
+import 'package:flutter_app/home_page.dart';
+import 'package:flutter_app/layout_bottom.dart';
 import 'package:flutter_app/storage_service.dart';
 
 class AddPost extends StatefulWidget {
@@ -13,6 +15,7 @@ class AddPost extends StatefulWidget {
 }
 class AddPostState extends State<AddPost>{
   late String description="";
+  late File file =File("");
   Data data =Data();
   Storage storage = Storage();
   var img ="";
@@ -27,6 +30,7 @@ class AddPostState extends State<AddPost>{
       print(img);
     });
   }
+  //hadi fonction thet image f carret
   void changerpost() async{
     final user =await data.getuser();
     final result = await FilePicker.platform.pickFiles(
@@ -39,8 +43,8 @@ class AddPostState extends State<AddPost>{
       return null;
     }else{
       final path =result.files.single.path;
-      fileName ='Posts/'+user.get("name")+"/post1";
-      File file = File(path!);
+      fileName ='Posts/'+user.get("name")+"/post";
+      file = File(path!);
       
       final storageref = FirebaseStorage.instance;
       await storageref.ref(fileName).putFile(file);
@@ -51,18 +55,27 @@ class AddPostState extends State<AddPost>{
     }
     
   }
-
+//hadi t ajouter post f firebase
   void addpost() async{
+    final storageref = FirebaseStorage.instance;
     final form = formKey.currentState;
     form?.save();
     final user =await data.getuser();
+    var _path = await storageref.ref('Posts/'+user.get("name")).listAll();
+    var size = _path.items.length;
+    print(size);
+
+    fileName ='Posts/'+user.get("name")+"/post"+size.toString();
+
+    await storageref.ref(fileName).putFile(file);
     final post = {
       "image": fileName,
       "description": description,
       "user":user.id
     };
     var bd = FirebaseFirestore.instance;
-   await bd.collection("posts").doc().set(post);
+    await bd.collection("posts").doc().set(post);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => layout()));
 
   }
 
