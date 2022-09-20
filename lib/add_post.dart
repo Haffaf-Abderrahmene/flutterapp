@@ -109,13 +109,11 @@ class AddPostState extends State<AddPost>{
               ),
             ),
             Padding(
-                padding: EdgeInsets.fromLTRB(30, 30, 30, 0.0),
+              padding: EdgeInsets.fromLTRB(30, 30, 30, 0.0),
               child: ElevatedButton(
-
                   onPressed: addpost,
-                child: new Text("Add",style: TextStyle(color: Colors.white)),
-                style: ButtonStyle(
-
+                  child: new Text("Add",style: TextStyle(color: Colors.white)),
+                  style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(

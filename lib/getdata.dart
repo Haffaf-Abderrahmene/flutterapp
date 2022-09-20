@@ -9,4 +9,8 @@ class Data {
 
     return await db.collection("users").doc(uid).get();
   }
+  Future<DocumentSnapshot<Map<String, dynamic>>> getuserwithid(uid) async{
+    var db = FirebaseFirestore.instance;
+    return await db.collection("users").doc(uid).get();
+  }
 }

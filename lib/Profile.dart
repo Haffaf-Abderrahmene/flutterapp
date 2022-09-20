@@ -52,7 +52,6 @@ class profile extends StatelessWidget{
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
-
                       child: FutureBuilder(
                         future: storage.downloadfile(snapshot.data!.get("photo_profile")),
                         builder: (BuildContext context, AsyncSnapshot<String> snapshot2) {
